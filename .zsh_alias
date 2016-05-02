@@ -1,0 +1,60 @@
+############
+#MY ALIASES#
+############
+
+alias aup="yaourt -Syu --aur"
+alias bak="bakfunction"
+alias balias="nano ~/.bash_aliases"
+alias bfunc="nano ~/.bash_functions"
+alias cdd="cd .. && cd .."
+alias cfunc='cat ~/.bash_functions'
+alias chx='sudo chmod +x'
+alias cl="clear"
+alias cp="cp -i"
+alias df='df -h'
+alias dir='ls --format=verbose'
+alias dl='ls -CF'
+alias du='du -h'
+alias free='free -m'
+alias la="ls -lAh"
+alias ll="ls -lh"
+alias l="ls -gGh"
+alias lsd="ls --group-directories-first"
+alias lsh='ls -o -n -h'
+alias lsr='ls -sFh --si'
+alias md='mkdir'
+alias more=less
+alias np='nano -w PKGBUILD'
+alias pacdown='sudo pacman -Suu'
+alias pacmans="sudo pacman -S"
+alias pacup="sudo pacman -Syu"
+alias paq="pacman -Q"
+alias paqi="pacman -Qi"
+alias pacsync="sudo pacman -Syy"
+alias rm='rm -iv'
+alias shrc="nano ~/.bashrc"
+alias soursh="source ~/.bashrc"
+alias uzipa='gunzip -rf *'
+alias vdir='ls --format=long'
+alias whe='type -a'
+
+#############
+#GIT ALIASES#
+#############
+
+alias ga='git add -A'
+alias gp='git push'
+alias gl='git log'
+alias gs='git status'
+alias gd='git diff'
+alias gm='git commit -m'
+alias gma='git commit -am'
+alias gb='git branch'
+alias gc='git checkout'
+alias gra='git remote add'
+alias grr='git remote rm'
+alias gpu='git pull'
+alias gcl='git clone'
+alias gta='git tag -a -m'
+alias gf='git reflog'
+
