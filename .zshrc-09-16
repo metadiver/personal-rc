@@ -1,0 +1,185 @@
+#!/bin/bash
+# Add thefuck to commands
+  eval $(thefuck --alias)
+
+# Path to your oh-my-zsh installation.
+  export ZSH=/home/rob/.oh-my-zsh
+
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+#	ZSH_THEME="$ZSH/themes/fox"
+
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+  HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to enable command auto-correction.
+  ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+#  HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git)
+
+# User configuration
+export PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/sbin:/usr/local/bin:/home/rob/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/rob/GNUstep/Tools"
+# export MANPATH="/usr/local/man:$MANPATH"
+
+## Command history configuration
+if [ -z "$HISTFILE" ]; then
+    HISTFILE=$HOME/.zsh_history
+fi
+
+HISTSIZE=500000
+SAVEHIST=500000
+
+# Show history
+case $HIST_STAMPS in
+  "mm/dd/yyyy") alias history='fc -fl 1' ;;
+  "dd.mm.yyyy") alias history='fc -El 1' ;;
+  "yyyy-mm-dd") alias history='fc -il 1' ;;
+  *) alias history='fc -l 1' ;;
+esac
+
+setopt append_history
+setopt extended_history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups # ignore duplication command history list
+setopt hist_ignore_space
+setopt hist_verify
+setopt inc_append_history
+setopt share_history # share command history data
+
+source $ZSH/oh-my-zsh.sh
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+#alias zshconfig="mate ~/.zshrc"
+#alias ohmyzsh="mate ~/.oh-my-zsh"
+
+alias ls='ls --color=tty --file-type --group-directories-first'
+alias grep='grep --color="auto"'
+
+# Sourcing Another
+
+#source ~/.zshset
+
+source ~/.zsh_alias
+source ~/.zsh_functions
+
+share=/usr/local/share/zsh-syntax-highlighting
+
+source $share/zsh-syntax-highlighting.zsh
+source $share/highlighters/brackets/brackets-highlighter.zsh
+source $share/highlighters/cursor/cursor-highlighter.zsh
+source $share/highlighters/line/line-highlighter.zsh
+source $share/highlighters/main/main-highlighter.zsh
+source $share/highlighters/pattern/pattern-highlighter.zsh
+source $share/highlighters/root/root-highlighter.zsh
+
+# FIX LS_COLORS
+
+LS_COLORS="rs=0:di=01;34:ln=01;36:mh=00:su=37;41:sg=30;43:ca=30;41:tw=01;42:ow=01;33:st=01;32:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36"
+export LS_COLORS
+
+# ZSH colors
+#ZSH_THEME_GIT_PROMPT_PREFIX=" on %{$fg[magenta]%}"
+#ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
+#ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[green]%}!"
+#ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[green]%}?"
+#ZSH_THEME_GIT_PROMPT_CLEAN=""
+
+# Enabling colorize for less
+LESSOPEN="|lesspipe.sh %s"
+export LESSOPEN
+
+# Visual, editor, sudo
+VISUAL=/usr/bin/nano
+EDITOR=/usr/bin/nano
+BROWSER=/usr/bin/google-chrome-stable
+export VISUAL EDITOR BROWSER
+
+
+# THEME FOX
+
+#PROMPT='%{$fg[cyan]%}┌[%{$fg_bold[white]%}%n%{$reset_color%}%{$fg[cyan]%}☮%{$fg_bold[white]%}%M%{$reset_color%}%{$fg[cyan]%}]%{$fg[white]%}-%{$fg[cyan]%}(%{$fg_bold[white]%}%~%{$reset_color%}%{$fg[cyan]%})$(git_prompt_info)
+#└> % %{$reset_color%}'
+#ZSH_THEME_GIT_PROMPT_PREFIX="-[%{$reset_color%}%{$fg[white]%}git://%{$fg_bold[white]%}"
+#ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}%{$fg[cyan]%}]-"
+#ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}✗%{$reset_color%}"
+#ZSH_THEME_GIT_PROMPT_CLEAN=" %{$fg[green]%}✔%{$reset_color%}"
+
+
+PROMPT=$'
+%{$fg[blue]%}%/%{$reset_color%} $(git_prompt_info)$(bzr_prompt_info)%{$fg[white]%}[%n@%m]%{$reset_color%} %{$fg[white]%}[%T]%{$reset_color%}
+%{$fg_bold[black]%}>%{$reset_color%} '
+
+PROMPT2="%{$fg_blod[black]%}%_> %{$reset_color%}"
+
+GIT_CB="git::"
+ZSH_THEME_SCM_PROMPT_PREFIX="%{$fg[green]%}["
+ZSH_THEME_GIT_PROMPT_PREFIX=$ZSH_THEME_SCM_PROMPT_PREFIX$GIT_CB
+ZSH_THEME_GIT_PROMPT_SUFFIX="]%{$reset_color%} "
+ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}*%{$fg[green]%}"
+ZSH_THEME_GIT_PROMPT_CLEAN=""
+
+setopt long_list_jobs
+setopt complete_in_word
+setopt completealiases
+setopt always_to_end
+
+source $ZSH/functions/colored-man-pages.plugin.zsh
+source $ZSH/functions/cp.plugin.zsh
+source ~/z.sh
+
+if [ -n "$PS1" ] ; then
+  safe-rm ()
+  {
+      ls -FCsd "$@"
+      echo 'permanently remove file[ny]? ' | tr -d '\012' ; read
+      if [ "_$REPLY" = "_y" ]; then
+          /usr/bin/rm -rivf "$@"
+					ls $PWD
+      else
+          echo 'removal of file '"$@"' has been (cancelled)'
+      fi
+  }
+fi

@@ -1,0 +1,202 @@
+#!/bin/bash
+#
+#######################
+# -----<ALIASES>----- #
+#######################
+# PERSONAL SYSTEM     #
+# ALIASES FOR MANJARO #
+# KDE AND GNOME       #
+#######################
+# -----:CONTACT:----- #
+#  rioted@gmail.com   #
+#######################
+
+# WINDOWS PASSWORD FIXER
+alias winfix='chntpw'
+
+# PYTHON
+alias py2='python2.7'                          #  Shortcut for Python2.7
+
+# GEOLOOKUP
+alias gip='geoiplookup -i'                     #  Shortcut for geoiplookup
+alias geoiplookup='geoiplookup -i'             #  Lookup an ip geolocation
+
+# SYSTEM
+alias kcm='kcmshell5'                          #  Shortcut for kcmschell5
+alias kcml='kcmshell5 --list'                  #  Get a list of kcmschell5 abilities
+alias kcmsys='sh -c $HOME/bin/kcmsys.sh'       #  Get all kcm system settings to change in the TUI
+alias sys5='systemsettings5'                   #  Change system settings
+alias spot='spotify-control.sh'                #  Manage Spotify information using Status, Album, etc
+
+# AUTOMATION
+alias xdt='xdotool'                            #  <xdotool # ^ Open a new tab in a terminal
+alias full='xdotool key ctrl+shift+F11'        #  Change the view to fullscreen (Yakuake only)
+
+# ZSH + SHELL FEATURES
+alias elv='elvish'                             #  Opens the elvish shell
+alias balias='nano ~/.zsh_alias'               #  Open .zsh_alias in nano
+alias bfunc='nano ~/.zsh_functions'            #  Open .zsh_functions in nano
+alias shup='nano ~/.zsh-update'                #  Checks the ZSH update file
+alias shset='nano ~/.zshset'                   #  Open .zshset in nano
+alias shfav='nano ~/.zsh_favlist'              #  Open .zsh_favlist in nano
+alias shrc='nano ~/.zshrc'                     #  Open .zshrc in nano
+alias soursh='source ~/.zshrc'                 #  Source the .zshrc file, which will access all others in the process
+alias zhist='nano ~/.zsh_history'              #  Open the zsh history in nano
+
+# APP HELP
+alias ncmus='less ~/Logs/config/cmus.txt'      #  See cmus shortcuts
+
+# ARCHIVE ALIASES
+alias gz='gzip'                                #  GZIP from STDIN
+alias ungz='gunzip'                            #  Extract .gz FROM STDIN
+
+# SHORTCUTS
+alias blake='b2sum'                            #  Get the blake sum (similar to sha256)
+alias image='sxiv'                             #  View an image in sxiv
+alias kfunc='kate ~/.zsh_functions'            #  Open zsh_functions in KATE
+alias kalias='kate ~/.zsh_alias'               #  Open zsh_alias in KATE
+
+# BASIC COMMAND TOOLS
+alias ..='cd ..'
+alias cdd='cd .. && cd ..'                     #  Go back 2 levels
+alias cd..='cd-up'                             #  Shortcut for cd-up command
+alias chrome='google-chrome-stable'            #  Open Google Chrome by typing chrome
+alias chx='sudo chmod +x'                      #  Make a file executable by the current user
+alias cl='clear'                               #  Clear
+alias cls='clear ; ls'                         #  Clear and list directory
+alias cp='cp -iv'                              #  No-clobber
+alias diff='colordiff'                         #  Use colordiff in all cases of diff output
+alias df='df -kTh'                             #  Includes type of disk drive in output
+alias du='du -kh'                              #  Disk usage displayed better
+alias free='free -m'                           #  RAM info listed in MB format
+alias h='history'                              #  View command history with ease
+alias j='jobs -l'                              #  View any runnning jobs
+alias md='mkdir -p'                            #  Make new directories, clobber-safe, all the way to the target
+alias more='less'                              #  Ease of use, allowing scrolling up/down
+alias mv='mv -iv'                              #  Verbose, non-clobber move
+alias n='nano'                                 #  Shortcut for opening Nano
+alias srm='safe-rm'                            #  Safe removal of files using safe-rm
+alias rm='rm -iv'                              #  Verbose/no-clobber
+alias rmdir="rm -div"                          #  Interactively removes all empty directories from .
+alias wh='where'                               #  Run where on a file, finding all its requirements
+alias whe='type -a'                            #  Find executable files
+alias where='type -a'                          #  Find any executable location
+alias which='type -a'                          #  Find executable files
+alias wiz='whereis'                            #  Find executables along with their dependencies
+
+# LS TOOLS
+alias la='ls -lAh'                             #  Display long list including hidden files
+alias lA='ls -A'                               #  Display hidden file
+alias lart='ls -1Fcart'                        #  Most recently modified listed at bottom, includes hidden
+alias ldot="ls -ld | grep '^[.]*'"             #  Full info on all hidden files
+alias ll='ls -lh'                              #  Display long list
+alias l='ls -gGh'                              #  Display full list save for user/group
+alias lS='ls -1FSsh'                           #  Single column w/ size, sorted by type
+alias lsh='ls -o -n -h'                        #  Full column with UID instead of username
+alias lsr='ls -sFh --si'                       #  Column with metric size listing
+alias lm='ll | more'                           #  Pipe through *more*
+alias lc='ls -ltcr'                            #  Sort by/show change time, most recent last.
+alias lk='ls -lSr'                             #  Sort by size, biggest last.
+alias lt='ls -ltr'                             #  Sort by date, most recent last.
+alias lu='ls -ltur'                            #  Sort by/show access time, most recent last.
+alias lx='ls -lXB'                             #  Sort by extension.
+alias lr='ll -R'                               #  Recursive ls
+alias lrr='ls -tRFh'                           #  More info recursively
+alias lrt='ls -1Fcrt'                          #  Reverse order of working dirs' most recent modification
+alias tree='tree -Csuh'                        #  Nice alternative to 'recursive ls'
+
+# PACKAGE BUILD TOOLS
+alias aurs='pacaur -s'                         #  Searches for the package(s) listed
+alias aurinfo='pacaur -i'                      #  Shows more detailed information on a target
+alias aurdl='pacaur -d'                        #  Downloads a package to build (from source)
+alias aurget='pacaur -S'                       #  Installs an AUR Package
+alias aursync='pacaur -Sy'                     #  Rebuild AUR repository
+alias aursynfull='pacaur -Syu'                 #  Completely rebuild AUR repository, ground up
+alias aurch='pacaur -k'                        #  Checks4updates in AUR, checks all manually installed
+alias aurup='pacaur -u'                        #  Update AUR packages, run aurch first then this
+alias aurfull='pacaur -Su'                     #  Full system upgrade (for AUR packages)
+alias np='nano -w PKGBUILD'                    #  Edits a PKGBUILD file using no hard-wrapped lines
+alias aup='yaourt -Syu --aur'                  #  Full upgrade of all AUR packages using unsafe binary
+alias pacdb='pacman -Syy'                      #  Refresh the sync database
+alias pacdown='pacman -Suu'                    #  Fix a broken db
+alias pacinfo='pacman -Ss'                     #  Get information a package in the repositories
+alias pacfull='pacman -Si'                     #  Get full info on a package (need full name)
+alias pacmans='sudo pacman -S'                 #  Install a package
+alias pacrem='sudo pacman -R'                  #  Removes a package
+alias pact='pacman -U'                         #  Update a package
+alias pacup='pacman -Syu'                      #  Updates database and all packages installed
+alias paqi='pacman -Qi'                        #  Verbose output of query
+alias paq='pacman -Q'                          #  Query a package's version
+alias paqa='pacman -Qe'                        #  Lists all installed package
+
+# ZIP TOOLS
+alias utar='tar xvf'                           #  Extract a .tar file
+
+# ENCRYPTION
+alias gpgen='gpg --gen-key'                    #  Generate a new GPG key
+alias degpg='gpg --decrypt-files'              #  Decrypt a GPG encrypted file
+alias engpg='gpg --encrypt-files'              #  Encrypt a file using your GPG
+alias gpgl='gpg --list-keys'                   #  List keys currently in the keyring
+
+# NET
+alias sshon='ssh robladen@southlaketech.in -p 18765'                  #  Open an SSH connection to SLT
+alias SLTS='sh -c ~/Documents/Coding/Bash/personal/southl.sh'         #  Open SLTS homepage in Chrome
+alias robladen='ncftp -u robladen -p Werebotion1! us4.siteground.us'  #  Connect to my FTP for southlaketech.in
+alias webtree='wget --spider -r --no-parent'                          #  Get webtree of a certain domain
+
+# OTHER
+alias disklive='sh -c ~/Documents/Coding/Bash/personal/disklive.sh'   #  See how much /home/ is using as well as everything in /
+alias new='xdotool key ctrl+shift+t; xdotool keyup ctrl+shift+t'      #  Make a new terminal using XDT
+alias boxer='grep "^BOX" /etc/boxes-config | sed "s|BOX ||g" | sort'  #  Show all boxes configurations
+alias boxers='nano /etc/boxes-config'                                 #  Edit the boxes-config in nano
+alias bins='less ~/Logs/syslog/binaries/list/07-12/all-bins-07-12-16' #  List all binaries as of listed date
+
+# NEW
+alias CA='2>&1 | cat -A'
+alias d='dirs -v | head -10'
+alias dud='du -d 1 -h'
+alias duf='du -sh *'
+alias fd='find . -type d -name'
+alias ff='find . -type f -name'
+alias help=man
+alias hgrep='fc -El 0 | grep'
+alias H='| head'
+alias h=history
+alias history='fc -fl 1'
+alias LL='2>&1 | less'
+alias L='| less'
+alias lnct='| wc -l'
+alias lnt='wc -l'
+alias M='| most'
+alias NE='2> /dev/null'
+alias NUL='> /dev/null 2>&1'
+alias P='2>&1| pygmentize -l pytb'
+alias p='ps -f'
+alias remalias='unalias $(alias | sed "s|=.*||g" ) ; unalias "gcan!" "gca!" "gc!"'
+alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
+alias sortnr='sort -n -r'
+alias T='| tail'
+alias unexport='unset'
+alias zshrc='$EDITOR ~/.zshrc'
+
+#_______________________________________________________________________________________________#
+
+# GIT ALIASES
+# alias ga='git add -A'                          #  Add file contents to the index
+# alias gp='git push'                            #  Update remote refs along with associated objs
+# alias gl='git log'                             #  Show commit logs
+# alias gs='git status'                          #  Show the working tree status
+# alias gd='git diff'                            #  Show the changes between commits
+# alias gm='git commit -m'                       #  Commit using a message in the following text
+# alias gma='git commit -am'                     #  Auto-Stage all tracked, modified files before commit
+# alias gb='git branch'                          #  List, create, or delete git branches
+# alias gc='git checkout'                        #  Switch branches or restore working tree files
+# alias gra='git remote add'                     #  Add a named remote <name> at the specified <URL>
+# alias grr='git remote rm'                      #  Remove a remote named <name>
+# alias gpu='git pull'                           #  Fetch from and integrate with a repository or branch
+# alias gcl='git clone'                          #  Clone a repo into a new directory
+# alias gta='git tag -a -m'                      #  -a creates the tag object, -m allows the user to type the message
+# alias gf='git reflog'                          #  Manage reference log information, such as when updates occur
+# PASTEBIN
+# alias pastebinit='pastebinit -u shambles07 -p Werebotion1!'
+# alias bbbb='echo $(command ls --file-type | grep "/")'

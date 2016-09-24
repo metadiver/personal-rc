@@ -1,0 +1,629 @@
+#!/bin/bash
+#-----------------------------------------------------------------------#
+#                                                                       #
+# These functions have been created by Rob Ladendorf (rioted@gmail.com) #
+#                                                                       #
+#-----------------------------------------------------------------------#
+
+function hexer() # PRINTF THE HEXIT
+{
+	printf "%s" $( hexit $1 )
+#	hexit $1 | printf "%s"
+}
+
+function therm() # GET WEATHER FROM ACCUWEATHER
+{
+	printf "\n"
+	toilet -t -f future $(wget -q -O- "http://www.accuweather.com/en/us/crown-point-in/46307/weather-forecast/19958_pc" |  awk -F\' '/acm_RecentLocationsCarousel\.push/{print $2": crown point, "$12"F" }'| head -1 | tr '[a-z]' '[A-Z]')
+	printf "\n"
+}
+
+function fixpix() # PUT GNOME SCREENSHOTS INTO ~/Pictures/Screenshots/Gnome/
+{
+	mv /home/rob/Pictures/Screenshot* -t /home/rob/Pictures/Screenshots/Gnome/ 2>/dev/null
+	cd /home/rob/Pictures/Screenshots/Gnome/ && sp-ce ; cd $OLDPWD
+}
+
+function bwmout() # MAKE A BWM-NG HTML LOG
+{
+	local DATE=$(date +%x | sed 's|/|-|g')
+	local TIME=$(date +%T | sed 's|:|_|g')
+	bwm-ng -F "${HOME}"/Logs/bwm-ng/bwmhtml-$DATE-$TIME.html
+}
+
+function hotdrive() # GET THE HOTNESS RATING OF YOUR CURRENT HARD DISK DRIVES AND POST THEM TO YOUR FAVORITES PORNO SITES
+{
+	awk '{ print; } $NR % 1 == 0 { print ""; }' <<<$(sudo hddtemp /dev/sd{a..z} 2>/dev/null)
+}
+
+function pbatt() # GET PHONE BATTERY IN %
+{
+	local BAT=$(qdbus org.kde.kdeconnect /modules/kdeconnect/devices/4fc300f9e614e3dc org.kde.kdeconnect.device.battery.charge)
+	toilet -t -f pagga "Phone Charge: ${BAT}%"
+}
+
+function bclip() # GET FFB ID INTO CLIPBOARD
+{
+	xclip -i ~/Logs/assist/ffb
+}
+
+function spoton() # THE COOLEST SPOTIFY MENU EVER
+{
+while true; do
+	clear
+	echo -ne "Menu\n"
+	echo "1) Artist  "
+	echo "2) Song "
+	echo "3) Album "
+	echo "4) Exit  "
+	echo
+	echo -n "Choose [1-4]:  "
+	read opt
+	echo
+	case $opt in
+		1) printf "$(toilet -F crop -t -f future --gay $(spotify-control.sh Artist))"
+			break
+		;;
+		2) printf "$(toilet -F crop -t -f future --gay $(spotify-control.sh Title))"
+			break
+		;;
+		3) printf "$(toilet -F crop -t -f future --gay $(spotify-control.sh Album))"
+		break
+		;;
+		4) break
+		;;
+		*)
+		echo "Error, press [1-3]"
+		break
+		;;
+	esac
+done
+printf "\n\n"
+}
+
+function k5do() # KILL AND FILL THE PLASMAHELL
+{
+	killall plasmashell && kstart plasmashell
+}
+
+function newpy() # CREATE EXECUTABLE PYTHON SCRIPTS
+{
+	touch $1.py ; sudo chmod +x $1.py
+}
+
+function zero2front() # ADDS A ZERO IN FRONT OF LINE THAT STARTS W/ A SINGLE DIGIT
+{
+	sed 's/\<[0-9]\>/0&/' $1
+}
+
+function timesince() # TIME SINCE EPOCH IN SECONDS, MINUTES, DAYS, ETC.
+{
+	EPO=$(date +%s)
+	echo -e "Years since EPOCH:\n" ; echo $EPO | awk '{ print $0 / 60 / 60 / 24 / 365 }' ; printf "\n"
+	echo -e "Days since EPOCH:\n" ; echo $EPO | awk '{ print $0 / 60 / 60 / 24 }' ; printf "\n"
+	echo -e "Hours since EPOCH:\n" ; echo $EPO | awk '{ print $0 / 60 / 60 }' ; printf "\n"
+	echo -e "Minutes since EPOCH:\n" ; echo $(( $(date +%s)/60 )) ; printf "\n"
+	echo -e "Seconds since EPOCH:\n" ; echo $EPO | awk '{ print $0 }' ; printf "\n"
+}
+
+function hexit() # GET A CANONICAL HEXDUMP OF A FILE, WITH SED HELPING
+{
+	hexdump -C $1 | awk '{ print $18 }' | sed 's/|//g' | sed 's|...||g'
+}
+
+function toif() # LIST AVAILABLE FUNCTIONS FOR TOILET -F
+{
+	ls -1 /usr/share/figlet/
+}
+function pokemon() # TYPE IN A POKEMON TO GET ITS MOVESET IN CHROME READING FROM $1
+{
+	new1="http://bulbapedia.bulbagarden.net/wiki/${1}_(Pok%C3%A9mon)/Generation_III_learnset"
+	google-chrome-stable $new1 &
+}
+
+function c256() # PRINT ALL 256 PLUS 8 COLORS AND THE ESCAPE SEQUENCES USED TO MAKE THEM
+{
+	printf "\n\nxterm-256-color\n\n"
+
+	for code in {0..255}
+    do echo -e "\e[38;5;${code}m"'\\e[38;5;'"$code"m"\e[0m"
+  done
+
+	printf "\n\n\nHIGH CONTRAST FONTS\n\n"
+	for code in {90..97}
+		do echo -e "\e[${code}m"'\\e['"$code"m"\e[0m"
+	done
+
+}
+
+function ffind() # FIND ANYTHING FROM READLINE IN THE WHOLE FILESYSTEM
+{
+	echo -e "\nWhat do you want to search for?\n"
+	read INP
+	sudo find / -iname "*$INP*" 2>/dev/null
+}
+
+function procf() # GET THE CPU FREQUENCY CURRENTLY
+{
+	TEST=$(sudo cpupower frequency-info | awk '/current CPU freq/{ print $2,$3,$4,$5 }')
+	echo $TEST > cpufreq.tmp
+	cat cpufreq.tmp
+	rm -f cpufreq.tmp 1>/dev/null
+}
+
+function cpuf() # GET CPU TEMP INFO
+{
+	sed -e 's/Core //g;s/+//g' <<<$(sensors | awk '/Core/{ print $1,$2,$3 }')
+}
+function addwhite() # ADD SPACE IN AFTER ALL WORDS IN A FILE
+{
+	sed 's/.\{1\}/& /g' $1
+}
+
+function fin() # WEIRD FUNCTION FOR SEARCHING FOR NEW PROGRAMS IN PACMAN
+{
+	$1	1&> ~/fin.sh ; sudo chmod +x fin.sh
+	pac=$(grep -o "$1" fin.sh)
+	sudo pacman -Ss $pac
+}
+
+function bright() # KILLS REDSHIFT FIRST (IF RUNNING) THEN CHANGE BRIGHTNESS
+{
+	redrun=$(pgrep redshift)
+	redruna=( $(pgrep redshift ) )
+	clear
+	if [ "${#redrun[@]}" != 0 ]; then
+		echo $redrun ; killall redshift 2>/dev/null && killall redshift-gtk 2>/dev/null #; return
+	else
+		echo -e "\n${BYellow}Redshift not currently running!"
+	fi
+  echo -e "\nInput the brightness you would like: [1-9]  \n"
+  read bb
+  echo -e "\nInput latitude: [1-6]  \n"
+  read lat
+  echo -e "\nInput longitude: [1-6]  \n"
+  read lon
+  redshift -v -o -l 0:0 -b 0.$bb -t "$lat"500:"$lon"500
+  echo -e "\n"
+}
+function ctemp() # KILLS REDSHIFT FIRST; LETS YOU CHOOSE ONE COLOR TEMP (20)00K TO (100)00K
+{
+	redrun=$(pgrep redshift)
+	redruna=( $(pgrep redshift ) )
+	clear
+	if [ "${#redrun[@]}" != 0 ]; then
+		echo $redrun ; killall redshift 2>/dev/null && killall redshift-gtk 2>/dev/null #; return
+	else
+		echo -e "\n${BYellow}Redshift not currently running!"
+	fi
+  echo -e "\nInput the brightness you would like: [1-9]  \n"
+  read bb
+  echo -e "\nInput color temp: [20-100]  \n"
+  read temp
+  redshift -v -O "$temp"00 -b 0.$bb
+  echo -e "\n"
+}
+
+function theweather() # WEATHER FOR $1 ZIPCODE
+{
+	curl -s "http://api.wunderground.com/auto/wui/geo/ForecastXML/index.xml?query=${@:-<THISWILLBEYOURINPUT>}"|perl -ne '/<title>([^<]+)/&&printf "%s: ",$1;/<fcttext>([^<]+)/&&print $1,"\n"' | awk '{ print; } $NR % 1 == 0 { print ""; }' | tr '[a-z]' '[A-Z]'
+}
+
+function blocks() # GETTING DISK INFO FROM /SYS
+{
+	local block
+	block=( $(command ls /sys/dev/block/) )
+	drives=( $(basename -a $(l /sys/dev/block/ | awk '{ print $9 }')) )
+	echo -e "${block[1]} ${drives[1]}\n${block[2]} ${drives[2]}\n${block[3]} ${drives[3]}\n${block[4]} ${drives[4]}\n${block[5]} ${drives[5]}\n${block[6]} ${drives[6]}\n${block[7]} ${drives[7]}\n${block[8]} ${drives[8]}\n${block[9]} ${drives[9]}\n${block[10]} ${drives[10]}\n${block[11]} ${drives[11]}\n"
+	blockz=$(echo $block)
+	echo -e "\nChoose from [1 - $(echo ${blockz} | awk '/8:/{ print  NF }')]: \n"
+	read opt
+	case $opt in
+		1) echo -e "\n$(echo ${blockz} | awk '/8:/{ print $1 }')\n" ;;
+		2) echo -e "\n$(echo ${blockz} | awk '/8:/{ print $2 }')\n" ;;
+		3) echo -e "\n$(echo ${blockz} | awk '/8:/{ print $3 }')\n" ;;
+		4) echo -e "\n$(echo ${blockz} | awk '/8:/{ print $4 }')\n" ;;
+		5) echo -e "\n$(echo ${blockz} | awk '/8:/{ print $5 }')\n" ;;
+		6) echo -e "\n$(echo ${blockz} | awk '/8:/{ print $6 }')\n" ;;
+		7) echo -e "\n$(echo ${blockz} | awk '/8:/{ print $7 }')\n" ;;
+		8) echo -e "\n$(echo ${blockz} | awk '/8:/{ print $8 }')\n" ;;
+		9) echo -e  "\n$(echo ${blockz} | awk '/8:/{ print $9 }')\n" ;;
+		10) echo -e "$(echo ${blockz} | awk '/8:/{ print $10 }')\n" ;;
+		11) echo -e "$(echo ${blockz} | awk '/8:/{ print $11 }')\n" ;;
+		*) return
+	esac
+}
+
+function blocksize() # GET BLOCKSIZE OF FILE SYSTEM
+{
+  blocks
+  echo -e "$(awk '{ print $0/2048/1024 }' /sys/dev/block/"${block[$opt]}"/size)GB"
+  cat /sys/dev/block/"${block[$opt]}"/size
+#	new=$(command ls /sys/dev/block)
+#	echo $new
+#	read $disk
+#	echo -e "$(awk '{ print $0/2048/1024 }' /sys/dev/block/$disk/size)GB"
+#	cat /sys/dev/block/$disk/size
+}
+
+function path() # PRINT PATH WITH NEWLINES
+{
+	printf "%s\n" $(sed 's|[:]| |g'<<<"${PATH}")
+}
+
+function squareme() # PRINT THE SQUARE OF $1
+{
+	echo $1 | awk ' END { n=$0" ^ "$0 " ="; print n,$0^$0 }'
+}
+
+function uptimer() # GET UPTIME FROM SCREENFETCH COMMAND
+{
+	local UPTIME=$( uptime -p | sed 's|up ||g;s|,||g' )
+	echo -e "\n${UPTIME[@]:0:6}\n\n${UPTIME[@]:6:7}\n\n${UPTIME[@]:13:15}" | tr '[:lower:]' '[:upper:]'
+}
+# VIEW ALIAS/FUNCTION FILES
+
+function short() # READ A SHORTCUT LIST FOR ALL PROGRAMS
+{
+	grep -e '.*[[:alnum:]]*=' -e '.*:' --color="always" ~/.shortcuts | awk '{ print; } $NR % 1 == 0 { print ""; }' | less -R
+}
+
+function calias() # READ ALL ALIASES IN LESS WITH A SPACE BETWEEN LINES
+{
+  awk '{ print; } $NR % 1 == 0 { print ""; }' ~/.zsh_alias | less
+}
+
+function cfunc() # READ ALL FUNCTIOSN IN LESS WITH A SPACE IN BETWEEN LINES
+{
+	awk '{ print; } $NR % 1 == 0 { print ""; }' ~/.zsh_functions | less
+}
+
+# MATH HELPERS
+
+function math() # BETTER MATH FUNCTION (LONG DECIMAL ANSWERS)
+{
+	bc -l<<<"$@"
+}
+function maths() # MATH W/O LONG DECIMALS
+{
+	bc -l <<< "$@" | zz
+}
+function nix() # REMOVES ALL DECIMAL PLACES WHEN PIPING FROM MATH
+{
+	sed 's/.[[:digit:]]*$//g'
+}
+function zz() # LEAVES ONLY 3 DECIMAL PLACES WHEN PIPING FROM MATH
+{
+  sed 's/.................$//g'
+}
+
+# LS COMMANDS
+function lsfunc() # LIST ALL FUNCTIONS INCLUDING DESCRIPTIONS
+{
+	command grep -E 'function.*().*#.*' ~/.zsh_functions | sed 's/function //g' | grep -v -e 'grep -v' -e 'grep -e' -e '# These' | sort
+}
+function lsfa() # LIST ONLY HIDDEN FILES IN WD (NON-DIRS)
+{
+	ls -A "$@" | command grep -v '/$' | command grep '^[.]'
+}
+function lsf() # LIST ONLY NON-HIDDEN NON-DIRS IN WD
+{
+	ls --file-type "$@" | grep -v '/$' | grep -v '@'
+}
+function lsfd() # LIST ONLY DIRS IN WD
+{
+	ls --file-type "$@" | grep '/$'
+}
+function lsfad() # LIST ONLY HIDDEN DIRS IN WD
+{
+	ls --file-type -A "$@" | grep '/$' | grep -v '^[[:alpha:]]'
+}
+function lsop() # USEFUL FOR SEARCHING FOR ALL BINARIES
+{
+	ls $(echo -e "$(path)" | sed 's|$|/|g') | grep $1 | sort | uniq
+}
+
+function lsc() # LIST NO. OF FILES (INCLUDING SYMBOLIC LINKS)
+{
+	ls -1 "$@" | wc -l
+}
+
+function lsca() # LIST NO. OF FILES (INCLUDING HIDDEN)
+{
+	ls -A "$@" | wc -l
+}
+
+# FILE MODIFICATIONS
+function bak()	# CREATES A BACKUP FILE FROM STDIN
+{
+  for i do
+    case ${i##*/} in
+      (?*.?*) cp -iv -- "$i" "${i%.*}.bak.${i##*.}";;
+      (*) cp -iv -- "$i" "$i.bak"
+    esac
+  done
+}
+function zmd() # MAKE EXECUTABLE ZSH SCRIPT
+{
+	echo "#!/bin/zsh" > $1.zsh
+	chmod +x $1.zsh
+}
+function cmd() # MAKE EXECUTABLE SH SCRIPT
+{
+	touch $1.sh
+	echo "#!/bin/bash" > $1.sh
+	chmod +x $1.sh
+}
+function debak() # RIDS WD OF ALL .BAK FILES
+{
+	for file in *.bak ; do cp "$file" "${file//.bak}"; rm -iv *.bak; done
+}
+function cpext() # COPY A FILE WITH THE DATE IN THE TITLE IN WD
+{
+	local TIME=$(date +%m-%d)
+	local EXT=$(ls $1 | grep -o '.[[:alpha:]]*$')
+	cp $1 $(ls $1 | sed 's/.[[:alpha:]]*$//g')-$TIME$EXT
+	command rm -iv $1
+}
+function cptime() # COPY A FILE W/O EXT TO HAVE THE DATE IN NAME
+{
+	local TIME=$(date +%m-%d)
+	cp $1 $1-$TIME
+	command rm -iv $1
+}
+function linetotal() # GET TOTAL NUM OF LINES IN A FILE
+{
+	gawk '{ nlines++ }  END  { print nlines }'
+}
+function sp_ce() # REPLACE SPACES IN FILENAMES WITH _
+{
+	for f in *\ *; do mv "$f" "${f// /_}"; done
+}
+function sp-ce() # REPLACE SPACES IN FILENAMES WITH -
+{
+	for f in *\ *; do mv "$f" "${f// /-}"; done
+}
+
+# XDOTOOL SHORTCUTS
+
+function nbash() # OPEN A NEW TAB IN BASH. (XDT)
+{
+	xdotool key ctrl+shift+t
+  xdotool keyup ctrl+shift+t
+  xdotool type bash
+  xdotool keydown Return
+  xdotool keyup Return
+  xdotool type clear
+  xdotool key Return
+  xdotool keyup Return
+}
+
+# INFORMATION ON USEFUL TERMINAL SHORTCUTS AND FUNCTION INFORMATION
+
+function bcuts() # LISTS COMMON TERMINAL SHORTCUTS
+{
+	cat /home/rob/Documents/PC-Info+Help/LinuxFiles/LinuxConfig/Shortcuts/cmdkeycuts.txt
+}
+
+# SYSTEM SHORTCUTS
+
+function cdls() # CHANGE TO A DIRECTORY AND LIST ITS CONTENTS
+{
+	cd "$@"; ls
+}
+function cd-up() # MOVE UP THE NUMBER OF DIRS LISTED IN $1
+{
+	cd $(printf "%0.0s../" $(seq 1 $1))
+}
+function mdcd() # MAKE A DIRECTORY AND MOVE TO IT, ALSO CREATING SUBDIRECTORIES ON THE WAY
+{
+	mkdir -p $1 && mkdir -p $1 && cd $1
+}
+# MONITOR BRIGHTNESS
+function slx() # CHANGE BRIGHTNESS (SLX 1-9)
+{
+	xrandr --output HDMI-0 --brightness $1.$2
+}
+# PROCESS RELATED
+function my_ps() # GET PROCESSES THE USER STARTED
+{
+	ps $@ -u $USER -o pid,%cpu,%mem,bsdtime,command
+}
+function pp() # PICK A PROCESS FROM MY_PS
+{
+	my_ps f | awk '!/awk/ && $0~var' var=${1:-".*"}
+}
+
+# ARCHIVE FUNCTIONS
+
+# EXTRACTION (.tar.bz2, .tar.gz, .bz2, .rar, .gz, .tar, .tbz2, .tgz, .zip, .Z, .7z)
+function exx () # EXTRACT ALMOST ANY ARCHIVE FILE
+{
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1   ;;
+      *.tar.gz)    tar xzf $1   ;;
+      *.bz2)       bunzip2 $1   ;;
+      *.rar)       unrar x $1   ;;
+      *.gz)        gunzip $1    ;;
+      *.tar)       tar xf $1    ;;
+      *.tbz2)      tar xjf $1   ;;
+      *.tgz)       tar xzf $1   ;;
+      *.zip)       unzip $1     ;;
+      *.Z)         aunpack $1   ;;
+      *.7z)        7z x $1      ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+# 7ZIP mc7z mx7z
+function mc7z() # MAKE A HIGHLY-COMPRESSED TAR.7Z ARCHIVE
+{
+	tar cf - $1.tar $1 | 7za a -t7z -si -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on $1.tar.7z
+}
+function mx7z() # EXTRACT A TAR.7Z ARCHIVE
+{
+	FILENAME=$1.tar;
+	7za x $FILENAME.7z;
+	tar -xvf $FILENAME ; rm -f $FILENAME
+}
+# TARGZ targz targzview extargz tarview targzadd targzo
+function targzview() # VIEW CONTENTS OF A TAR.GZ FILE
+
+{
+	gunzip $1.tar.gz
+	VIEW=$(tar -tvf $1.tar)
+	awk '{ print $6 }' <<<  $(tar -tvf $1.tar) ; echo $VIEW 1> temp.txt
+	echo -e "\n\nWould you like to copy the text from the last command to a file?:  "
+	read yN
+	case $yN in
+		y*|Y*) mv temp.txt targzview.log ; gzip $1.tar;;
+		n*|N*) rm -f temp.txt ; gzip $1.tar ;;
+		*) echo "MISTAKE!" ;;
+	esac
+}
+function tarview() # VIEW CONTENTS OF TAR FILE
+{
+	tar -tvf $1.tar
+}
+function targzadd() # ADD STDIN FILE TO TAR.GZ ARCHIVE
+{
+	gunzip $1.tar.gz
+	tar -rvf $1.tar $2
+	tar -tvf $1.tar
+	gzip $1.tar
+}
+function targz() # CREATE TARGZ ARCHIVE FROM STDIN
+{
+	tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"
+}
+function targzex() # EXTRACT ARCHIVE TO WD
+{
+	tar -xvzf $1.tar.gz
+}
+# ZIP zipit
+function zipit() # CREATE ZIP ARCHIVE FROM STDIN
+{
+	zip -9 -r "${1%%/}.zip" "$1"
+}
+# CPIO cpuse cpfind cpiowd cpiols cpview cpioex cpiowdex
+function cpuse() # DESCRIBES HOW TO USE FIND WITH CPIO
+{
+	echo 'Usage is like this: find 'LOCATION' -(i)name "*.extension" | cpio -o > ARCHIVE.cpio'
+	echo 'This will find all files starting from the LOCATION dir that use the extension and add them to a .cpio archive.'
+	#find /home/shambi07/ -iname $1 | cpio -o > $2.cpio
+}
+function cpioall() # MAKE A CPIO ARCHIVE OF CURRENT FOLDER, REMOVING ANY SPACES FROM TITLE
+{
+	local TIME=`date +%m-%d`
+	local BASE=`basename $PWD`
+	local MACE="$(echo $BASE | sed 's/ //g')"
+	title=$MACE-$TIME
+	find . -depth -print | cpio -oaV > $title.cpio
+	du $title.cpio
+	gzip $title.cpio
+	du $title.cpio.gz
+}
+function cpiowd() # MAKE CURRENT DIRECTORY INTO A CPIO ARCHIVE
+{
+	find . -depth -print0 | cpio --null -pvd $1
+}
+function cpiols() # USE LS TO CREATE A CPIO ARCHIVE
+{
+	ls | cpio -ov > $1.cpio
+}
+function cpview() # VIEW A CPIO ARCHIVES CONTENTS
+{
+	cpio -it < $1.cpio
+}
+function cpioex() # EXTRACT A CPIO ARCHIVE AND CONTENTS GO TO ORIGINAL DIRECTORY
+{
+	cpio -iv < $1.cpio
+}
+function cpiowdex() # EXTRACT CPIO TO WD
+{
+	cpio -idv --no-absolute-filenames < $1.cpio
+}
+
+# GET SUM OF FILE CONTENTS (psumof, sumof)
+
+
+function psumof() # PERLS SUM OF ALL NUMBERS IN A FILE
+{
+	perl -nle '$sum += $_ } END { print $sum' $1
+}
+function sumof() # SUM USING AWK
+{
+	awk '{sum+=$0} END {print sum}' $1
+}
+
+# FUNCTIONS TO GET INFORMATION ON OTHER FUNCTIONS
+
+function funcive() # LIST ARCHIVE FUNCTION TITLES
+{
+	grep -e '^# 7ZIP.*' -e '^# TARGZ.*' -e '^# ZIP.*' -e '^# CPIO.*' --color="never" ~/.zsh_functions | grep '^#.*' --color="never" | sort
+}
+function funcinfo() # GET DETAILED INFO ON ARCHIVE FUNCTIONS
+{
+	grep -e 'mc7z' -e 'mx7z' -e 'cpuse' -e 'cpiowd' -e 'cpiols' -e 'cpview' -e 'cpioex' -e 'cpiowdex' -e 'targz' -e 'targzview' -e 'extargz' -e 'tarview' -e 'targzadd' -e 'targzo' -e 'zipit' ~/.zsh_functions | sed 's/function //g' | sed 's/grep.*//g'
+}
+function exxin() # EXTRACTION FUNCTION (EXX) FILE USAGE
+{
+	grep '^# EXTRACTION' --color=never ~/.zsh_functions
+}
+function funcls() # PRINT ALL FUNCTIONS AND DEFINITIONS ALL AT ONCE
+{
+	grep '^function' ~/.zsh_functions | sed 's/function //g' | sort
+}
+function funcs() # PRINT ALL FUNCTIONS
+{
+	printf "%s\n" $(command grep '^function' ~/.zsh_functions | sed 's/function //g' | sort) | grep '()' | grep -v '^()' | sed 's|()||g'
+}
+
+function packls() # LIST ALIASES USED FOR PACKAGE MANAGEMENT
+{
+	printf "\n" ; grep -A 22 'PACKAGE' --color="never" ~/.zsh_alias | awk '{ $1=""; print $0 }' | awk '{ print; } $NR % 1 == 0 { print ""; }'
+}
+
+# Colors for commands
+Black="\e[0;30m"
+Red="\e[0;31m"
+Green="\e[0;32m"
+Yellow="\e[0;33m"
+Blue="\e[0;34m"
+Purple="\e[0;35m"
+Cyan="\e[0;36m"
+White="\e[0;37m"
+
+BBlack="\e[1;30m"
+BRed="\e[1;31m"
+BGreen="\e[1;32m"
+BYellow="\e[1;33m"
+BBlue="\e[1;34m"
+BPurple="\e[1;35m"
+BCyan="\e[1;36m"
+BWhite="\e[1;37m"
+
+On_Black="\e[40m"
+On_Red="\e[41m"
+On_Green="\e[42m"
+On_Yellow="\e[43m"
+On_Blue="\e[44m"
+On_Purple="\e[45m"
+On_Cyan="\e[46m"
+On_White="\e[47m"
+NC="\e[m"
+
+# FUNCTION GRAVEYARD
+
+#function getme()
+# {
+#    $1 2>> ~/stderr.out 1> ~/dl.sh
+#		sudo chmod +x dl.sh
+#		sudo bash -c $HOME/dl.sh
+#		rm -i ~/stderr.out dl.sh
+# }
+

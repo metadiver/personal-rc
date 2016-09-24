@@ -1,0 +1,90 @@
+#!/bin/bash
+# AUTOMATION
+alias new='xdotool key ctrl+shift+t; xdotool keyup ctrl+shift+t'    # Yakuake tty creator
+alias xdt='xdotool'                 #  Shorter way to run xdotool, for auto-keying
+
+# BASH + SHELL FEATURES
+alias bins="less ~/Logs/syslog/binaries/list/07-12/all-bins-07-12-16"
+alias balias="nano ~/.bash_aliases"
+alias bfunc="nano ~/.bash_functions"
+alias calias="more ~/.bash_aliases"
+alias cfunc='cat ~/.bash_functions | tail -n+185 | more'
+alias chx='sudo chmod +x'
+alias cmdout='bash /home/rob/useful/cmd-output.sh'
+alias shpr='nano ~/.bash_profile'
+alias shrc="nano ~/.bashrc"
+alias soursh="source ~/.bashrc ; source ~/.bash_profile"
+
+# SIMPLIFY
+alias ..='cd ..'
+alias chrome='google-chrome-stable'
+alias full='xdotool key ctrl+shift+F11'     #  Fullscreen command in Yakuake
+alias h='history'
+alias j='jobs -l'
+alias fym="kdialog --sorry 'FUCK YOU MAN'"
+alias will="kdialog --yesno 'Fuck you man?'"
+alias md='mkdir -p'
+alias wiz='whereis'
+
+# BASIC COMMAND TOOLS
+alias cdd="cd .. && cd .."
+alias cd..="cd-up"									#  Shortcut for using the function cd-up
+alias cl="clear"                    #  Clear
+alias cls='clear ; ls'              #  Clear and list directory
+alias cp="cp -iv"                   #  No-clobber
+alias diff='colordiff'							#  Change output of diff to use color
+alias df='df -kTh'                  #  Includes type of disk drive in output
+alias du='du -kh'                   #  Disk usage displayed better
+alias free='free -m'                #  RAM info listed in MB format
+alias more=less                     #  Ease of use, allowing scrolling up/down
+alias mv='mv -iv'										#  Move files w/o clobbering, include verbose information
+alias n='nano'                      #  Shortcut for opening the Terminal text-editor, Nano
+alias rm='rm -iv'                   #  Verbose/no-clobber
+alias where='type -a'               #  Find a binary's executable location
+alias which='type -a'
+
+# LS TOOLS
+alias dl='ls -CF'                   #  Column list with */=>@| to indicate filetype
+alias la="ls -lAh"                  #  Display hidden files in full column
+alias ll="ls -lh"                   #  Display full column
+alias l="ls -gGh"                   #  Display full column without user/group
+alias lsd="ls --group-directories-first"
+alias lsh='ls -o -n -h'             #  Full column with UID instead of username
+alias lsr='ls -sFh --si'            #  Column with metric size listing
+alias lm='ll |more'                 #  Pipe through 'more'
+alias lc='ls -ltcr'                 #  Sort by/show change time, most recent last.
+alias lk='ls -lSr'                  #  Sort by size, biggest last.
+alias lt='ls -ltr'                  #  Sort by date, most recent last.
+alias lu='ls -ltur'                 #  Sort by/show access time, most recent last.
+alias lx='ls -lXB'                  #  Sort by extension.
+alias lr='ll -R'                    #  Recursive ls
+alias tree='tree -Csuh'             #  Nice alternative to 'recursive ls'
+
+# PACKAGE BUILD TOOLS
+alias aurs='sudo pacaur -s'         #  Searches for the package(s) listed
+alias aurinfo='sudo pacaur -i'      #  Shows information on the supplied target
+alias aurdl='sudo pacaur -d'        #  Downloads a package to build
+alias aursync='sudo pacaur -y'      #  Clone, build, install targets and fix dependency issues
+alias aurch='sudo pacaur -k'        #  Checks4updates in AUR, checks all manually installed
+alias aurup='sudo pacaur -u'        #  Update AUR packages, run aurch first then this
+
+alias np='nano -w PKGBUILD'         #  Edits a PKGBUILD file using no hard-wrapped lines
+
+alias pacdb="sudo pacman -Syy"      #  Refresh the sync database
+alias pacdown='sudo pacman -Suu'    #  Fix a broken db
+alias pacinfo='sudo pacman -Ss'			#  Get information a package in the repositories
+alias pacmans="sudo pacman -S"      #  Install a package
+alias pacup="sudo pacman -Syu"      #  Updates database and all packages installed
+alias paqi="pacman -Qi"             #  Verbose output of query
+alias paq="pacman -Q"               #  Query a package's version
+alias yaoup="yaourt -Syu --aur"     #  Full upgrade of all AUR packages using unsafe binary
+
+# ZIP TOOLS
+alias utar='tar xvf'                #  Extract a .tar file
+
+# ENCRYPTION
+alias gpgen='gpg --gen-key'
+alias degpg='gpg --decrypt-files'
+alias engpg='gpg --default-recipient-self --encrypt-files'
+alias gpgl='gpg --list-keys'
+
